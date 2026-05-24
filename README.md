@@ -48,7 +48,7 @@ python run.py
 python src/data_process.py
 python src/model_train.py
 python src/visualization.py
-python -c "import sys; sys.path.insert(0,'src'); from report_export import build_report_summary; build_report_summary()"
+python src/fill_report_docx.py   # 将 report.md 内容填入 Word 模板，生成 report.docx
 ```
 
 ## 目录结构
