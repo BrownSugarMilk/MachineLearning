@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# 虚拟环境
+my_venv/
+venv/
+.env
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 运行时缓存
+.matplotlib/
+*.log
+
+# 可重新生成的中间数据（运行 run.py 会自动生成）
+data/train_clean.csv
+data/test_clean.csv
+data/y_train_clean.csv
+
+# 旧版实验遗留文件
+results/xgb_model.pkl
+results/feature_importance_xgb.png
+results/submission_lgb.csv

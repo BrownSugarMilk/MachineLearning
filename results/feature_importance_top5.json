@@ -1,0 +1,27 @@
+[
+  {
+    "rank": 1,
+    "feature": "TotalSF",
+    "importance": 461
+  },
+  {
+    "rank": 2,
+    "feature": "LotArea",
+    "importance": 405
+  },
+  {
+    "rank": 3,
+    "feature": "OverallCond",
+    "importance": 278
+  },
+  {
+    "rank": 4,
+    "feature": "GrLivArea",
+    "importance": 272
+  },
+  {
+    "rank": 5,
+    "feature": "BsmtFinSF1",
+    "importance": 268
+  }
+]
