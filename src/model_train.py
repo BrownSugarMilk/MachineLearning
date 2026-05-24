@@ -44,6 +44,7 @@ def evaluate_lgb_with_early_stopping(X, y, params, cv=CV_FOLDS):
     """LightGBM 专用交叉验证，每折使用早停防止过拟合。"""
     kfold = KFold(n_splits=cv, shuffle=True, random_state=RANDOM_STATE)
     fold_scores = []
+    fold_r2 = []
 
     for train_idx, valid_idx in kfold.split(X):
         model = lgb.LGBMRegressor(**params, random_state=RANDOM_STATE, n_jobs=-1, verbosity=-1)
@@ -54,10 +55,12 @@ def evaluate_lgb_with_early_stopping(X, y, params, cv=CV_FOLDS):
             callbacks=[lgb.early_stopping(50, verbose=False)],
         )
         pred = model.predict(X.iloc[valid_idx])
-        fold_scores.append(rmse_score(y.iloc[valid_idx], pred))
+        y_valid = y.iloc[valid_idx]
+        fold_scores.append(rmse_score(y_valid, pred))
+        fold_r2.append(r2_score(y_valid, pred))
 
     fold_scores = np.array(fold_scores)
-    return fold_scores, fold_scores.mean(), fold_scores.std(), None
+    return fold_scores, fold_scores.mean(), fold_scores.std(), float(np.mean(fold_r2))
 
 
 def get_models():
@@ -105,8 +108,7 @@ def train_and_compare():
         start = time.time()
 
         if name == "LightGBM":
-            folds, mean_rmse, std_rmse, _ = evaluate_lgb_with_early_stopping(X_train, y_train, spec)
-            r2_mean = None
+            folds, mean_rmse, std_rmse, r2_mean = evaluate_lgb_with_early_stopping(X_train, y_train, spec)
 
             # 使用 10% 验证集做早停，再在全量训练集上复训
             X_tr, X_val, y_tr, y_val = train_test_split(
